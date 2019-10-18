@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+    <Properties>
+        <Property name="log-path">/var/log/zlogs</Property>
+        <Property name="LOG_PATTERN">
+            %highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} %M(%F:%L) - %m%n}{FATAL=red blink, ERROR=red,
+            WARN=yellow, INFO=green, DEBUG=cyan bold, TRACE=white}
+        </Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="file-log" fileName="${log-path}/autodeployer.log"
+                     filePattern="${log-path}/autodeployer-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="com.javocode.autodeployer" level="info" additivity="false">
+            <AppenderRef ref="file-log"/>
+        </Logger>
+
+        <Logger name="org.hibernate" level="info" additivity="false">
+            <AppenderRef ref="file-log"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

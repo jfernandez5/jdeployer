@@ -7,6 +7,9 @@ import com.javocode.autodeployer.deployment.domain.project.ServerTerminal;
 import org.junit.After;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -39,6 +42,15 @@ public class DeployProjectDAOITest {
         deployProjectDAO.save(deployProject);
 
         assertThat(deployProject.getId(), is(1L));
+    }
+
+    @Test
+    public void findAllDeployProjects() {
+        DeployProjectDAO deployProjectDAO = new DeployProjectDAO();
+
+        List<DeployProject> deployProjects = deployProjectDAO.findAll();
+
+        assertThat(deployProjects.size(), is(greaterThan(0)));
     }
 
     @After

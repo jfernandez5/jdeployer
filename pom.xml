@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.javocode</groupId>
-    <artifactId>autodeployer</artifactId>
+    <artifactId>jdeployer</artifactId>
     <version>1.0</version>
 
     <properties>
